@@ -20,8 +20,8 @@ class UserClient
     #[ORM\Column(length: 255)]
     private ?string $firstName = null;
 
-    #[ORM\Column(type: Types::ARRAY, nullable: true)]
-    private array $allergns = [];
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $allergns = null;
 
     #[ORM\Column]
     private ?int $nbCouvertDefault = null;
@@ -59,12 +59,12 @@ class UserClient
         return $this;
     }
 
-    public function getAllergns(): array
+    public function getAllergns(): ?string
     {
         return $this->allergns;
     }
 
-    public function setAllergns(?array $allergns): self
+    public function setAllergns(?string $allergns): self
     {
         $this->allergns = $allergns;
 

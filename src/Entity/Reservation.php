@@ -26,8 +26,8 @@ class Reservation
     #[ORM\Column]
     private ?int $nbCouvert = null;
 
-    #[ORM\Column(type: Types::ARRAY, nullable: true)]
-    private array $allergns = [];
+    #[ORM\Column(length: 225, nullable: true)]
+    private ?string $allergns = null;
 
     public function getId(): ?int
     {
@@ -82,12 +82,12 @@ class Reservation
         return $this;
     }
 
-    public function getAllergns(): array
+    public function getAllergns(): ?string
     {
         return $this->allergns;
     }
 
-    public function setAllergns(?array $allergns): self
+    public function setAllergns(?string $allergns): self
     {
         $this->allergns = $allergns;
 
