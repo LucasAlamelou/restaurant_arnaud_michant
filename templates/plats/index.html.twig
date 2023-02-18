@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Menu-Arnaud Michant
+{% endblock %}
+
+{% block main %}
+	<div class="container border border-dark">
+		<h2 class="d-flex justify-content-center p-3">Choix de la carte</h2>
+		<div class="row">
+			{% for categorie in categories_plats %}
+				<section class="col-md-4 col-sm-12 ">
+					<div class=" p-3 mt-3 ms-3 mb-3 me-3">
+						<h3>{{ categorie.name }}</h3>
+						<div class="row p-2">
+							{% for plat in plats %}
+								{% if plat.categoriesOfPlat.id is same as categorie.id %}
+									<div class="col-md-9 col-sm-10 p-2 d-flex justify-content-center">
+										{{plat.title}}
+									</div>
+									<div class="col-md-3 col-sm-2 p-2">
+										{{plat.price}}
+										€
+									</div>
+									<div class="col-md-8 col-sm-12 ">
+										{{plat.description}}
+									</div>
+								{% endif %}
+							{% endfor %}
+						</div>
+					</div>
+				</section>
+
+			{% endfor %}
+		</div>
+	</div>
+
+{% endblock %}

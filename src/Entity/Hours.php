@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\HoursRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: HoursRepository::class)]
 class Hours
@@ -23,6 +24,7 @@ class Hours
     private ?string $endHour = null;
 
     #[ORM\ManyToOne(inversedBy: 'hours')]
+    #[Groups("restaurant")]
     private ?Restaurant $restaurant = null;
 
     public function getId(): ?int

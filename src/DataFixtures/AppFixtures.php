@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\CategoriesOfPlat;
 use App\Entity\FormuleInMenu;
+use App\Entity\Hours;
 use App\Entity\PlatOfRestaurant;
 use App\Entity\Restaurant;
 use App\Entity\TypeOfMenu;
@@ -28,6 +29,13 @@ class AppFixtures extends Fixture
         $restaurant->setCapacityMax(25);
         $manager->persist($restaurant);
 
+        $hours = new Hours();
+        $hours->setDay('Lundi')->setStartHour('12h00')->setEndHour('14h00')->setRestaurant($restaurant);
+        $manager->persist($hours);
+        $hours = new Hours();
+        $hours->setDay('Lundi')->setStartHour('20h00')->setEndHour('23h00')->setRestaurant($restaurant);
+        $manager->persist($hours);
+
         $user = new User($this->passwordHasher);
         $userClient = new UserClient();
         $userClient->setFirstName('Alamelou')->setLastName('Lucas');
@@ -41,7 +49,7 @@ class AppFixtures extends Fixture
         $user1 = new User($this->passwordHasher);
         $userClient1 = new UserClient();
         $userClient1->setFirstName('User1')->setLastName('User1');
-        $userClient1->setNbCouvertDefault(0)->setAllergns(array('Tomate', 'Gluten'));
+        $userClient1->setNbCouvertDefault(0)->setAllergns('Tomate, Gluten');
         $user1->setEmail('user@user.com')->setPassword('admin');
         $user1->setUserClient($userClient1);
         $manager->persist($user1);

@@ -1,0 +1,34 @@
+<div class="col-md-6 col-sm-12">
+	{% if type_of_menu is same as null %}
+		<p>
+			Aucun menus disponible..
+		</p>
+	{% else %}
+		{% for menu in type_of_menu %}
+			<div class="border border-dark p-3 mt-3 ms-3 mb-3 me-3">
+				<div class="row">
+					<h2>{{menu.title}}</h2>
+				</div>
+				<div class="row">
+					{% for formule in formule_in_menu %}
+						{% if formule.TypeOfMenu.id is same as menu.id%}
+							<div class="col-md-10 col-sm-10 p-3 d-flex justify-content-center">
+								{{"FORMULE"}}
+								:
+							</div>
+							<div class="col-md-2 col-sm-2 p-3">
+								{{formule.price}}
+								€
+							</div>
+							<div class="col-md-8 col-sm-12 p-3">
+								{{formule.description}}
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+			</div>
+		{% endfor %}
+	{% endif %}
+
+
+</div>

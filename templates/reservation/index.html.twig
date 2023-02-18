@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservation!
+{% endblock %}
+
+{% block main %}
+	<div class="container">
+		{{form_start(form)}}
+
+		{{form_widget(form)}}
+		<div id="nb-place-vacant"></div>
+		<div id="slot_for_day"></div>
+		<input class="btn btn-danger btn-lg" value="Réserver" type="submit">
+		{{form_end(form)}}
+
+	</div>
+	{{ include('./hours/hours.html.twig') }}
+{% endblock %}
