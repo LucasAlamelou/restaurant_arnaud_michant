@@ -1,4 +1,7 @@
-<div class="col-md-6 col-sm-12">
+{% block stylesheets %}
+	<link href="{{asset("css/Menus.css")}}" rel="stylesheet">
+{% endblock %}
+<div class="menus-all">
 	{% if type_of_menu is same as null %}
 		<p>
 			Aucun menus disponible..

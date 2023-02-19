@@ -1,1 +1,4 @@
-<a type="button" class="btn btn-primary btn-lg" href="{{path('app_reservation')}}">Réserver une table</a>
+{% block stylesheets %}
+	<link href="{{asset("css/button.css")}}" rel="stylesheet">
+{% endblock %}
+<a type="button" class="btn button-reservation" href="{{path('app_reservation')}}">Réserver une table</a>

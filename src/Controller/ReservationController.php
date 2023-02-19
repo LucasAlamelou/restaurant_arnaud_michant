@@ -23,6 +23,8 @@ class ReservationController extends AbstractController
         ManagerRegistry $doctrine,
         HoursRepository $hoursRepository,
     ): Response {
+        $user = $this->getUser();
+
         $reservation = new Reservation();
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
@@ -36,7 +38,8 @@ class ReservationController extends AbstractController
 
         return $this->render('reservation/index.html.twig', [
             'form' => $form->createView(),
-            'hours' => $hoursRepository->findAll()
+            'hours' => $hoursRepository->findAll(),
+            'user' => $user
         ]);
     }
 

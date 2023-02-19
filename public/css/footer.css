@@ -1,0 +1,8 @@
+:root{
+    --footer-bg-color: #FBFFD1;
+}
+
+.footer-home {
+    background-color: var( --footer-bg-color
+    );
+}

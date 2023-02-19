@@ -1,13 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}Arnaud Michant-Restaurant
+{% endblock %}
 
 {% block main %}
+	{% include("./home/pictureHome.html.twig") %}
 	{% include('./button/button.html.twig') %}
 	<div class="row">
-		{% include('./home/menus.html.twig') %}
-		{% include('./home/description.html.twig') %}
-
+		<div class="col-12 col-lg-6 p-0">
+			{% include('./home/menus.html.twig') %}
+		</div>
+		<div class="col-12 col-lg-6 p-0">
+			{% include('./home/description.html.twig') %}
+		</div>
 	</div>
 	{{ include('./hours/hours.html.twig') }}
 {% endblock %}

@@ -1,0 +1,11 @@
+.button-reservation {
+    border-radius: 15px;
+    height: 45px;
+    width: 250px;
+    margin-left: 50%;
+    margin-bottom: 0.5rem;
+    transform: translateX(-50%);
+    background-color: #FFE0FC;
+    margin-top: 0.5rem;
+    align-items: center;
+}

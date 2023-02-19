@@ -1,0 +1,14 @@
+.home-picture{
+    background-image: url('../images/header/cafe-mobile.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100vw;
+    height: 500px;
+}
+
+@media screen and (min-width: 752px) {
+    .home-picture {
+        background-image: url('../images/header/cafe-desktop.jpg');
+        height: 650px;
+    }
+}

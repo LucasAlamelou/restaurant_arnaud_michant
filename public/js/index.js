@@ -87,7 +87,7 @@ async function getReservationJour(date) {
  * @returns {string} retourne la liste des créneaux disponible
  */
 function getDispoRevervation(hoursDay) {
-    let htmlContent = '<div>';
+    let htmlContent = '<div class="col-12">';
     hoursDay.forEach((day) => {
         if (!day.startHour) {
             console.error('Erreur horaires invalide');
@@ -110,16 +110,24 @@ function getDispoRevervation(hoursDay) {
                     minutes = 00;
                 }
                 htmlContent += `
-                    <input type="radio" id="hours-${day.day}-${r}" name="reservation[hour]" value="${hour}h${minutes}"
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" id="hours-${
+                        day.day
+                    }-${r}" name="reservation[hour]" value="${hour}h${
+                    minutes === 0 ? '00' : minutes
+                }"
                             checked>
-                    <label for="hours-${day.day}-${r}">${hour}h${minutes}</label>
-                
+                    <label class="form-check-label" for="hours-${
+                        day.day
+                    }-${r}">${hour}h${minutes}</label>
+                </div>
                 `;
                 minutes = minutes + 15;
             }
         }
     });
     htmlContent += '</div>';
+    console.log(htmlContent);
     return htmlContent;
 }
 

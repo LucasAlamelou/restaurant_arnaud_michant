@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&family=Norican&family=Overpass:ital,wght@0,400;0,800;1,200&display=swap');
+
+/* 
+font-family: 'ABeeZee', sans-serif;
+font-family: 'Norican', cursive;
+font-family: 'Overpass', sans-serif; 
+*/
+body{
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Overpass', sans-serif;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+
+.bold {
+    font-weight: bolder;
+}
+
+.italic {
+    font-style: italic;
+}
+.light {
+    font-weight: lighter;
+}
+
+.underline {
+    text-decoration: underline;
+}
+
+.twenty-px {
+    font-size: 20px;
+}
+.twenty-five-px {
+    font-size: 25px;
+}

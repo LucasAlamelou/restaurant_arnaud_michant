@@ -4,9 +4,52 @@
 {% endblock %}
 
 {% block main %}
-	{{form_start(form)}}
-	{{ form_errors(form) }}
-	{{form_rest(form)}}
-	<input type="submit" value="S'incrire" class="btn btn-success mt-2">
-	{{form_end(form)}}
+	<div class="d-flex col-12 p-5 justify-content-center">
+		{{form_start(form)}}
+		<div class="mb-3">
+			{{ form_label(form.user.email, null, {'label_attr': {'class': 'underline'}})
+																								}}
+			{{ form_widget(form.user.email, {'attr': {'class': 'form-control mt-3'}}) }}
+		</div>
+		<div class="mb-3">
+			{{ form_label(form.user.password, null, {'label_attr': {'class': 'underline'}})
+																								}}
+			{{ form_widget(form.user.password, {'attr': {'class': 'form-control mt-3'}}) }}
+		</div>
+		<div class="row">
+			<div class="mb-3 col-6">
+				{{ form_label(form.userClient.lastName, null, {'label_attr': {'class': 'underline'}})
+																												}}
+				{{ form_widget(form.userClient.lastName, {'attr': {'class': 'form-control mt-2'}}) }}
+			</div>
+			<div class="mb-3 col-6">
+				{{ form_label(form.userClient.firstName, null, {'label_attr': {'class': 'underline'}})
+																												}}
+				{{ form_widget(form.userClient.firstName, {'attr': {'class': 'form-control mt-2'}}) }}
+			</div>
+		</div>
+
+
+		<div class="mb-3">
+			{{ form_label(form.userClient.allergns, null, {'label_attr': {'class': 'underline'}})
+																								}}
+			{{ form_widget(form.userClient.allergns, {'attr': {'class': 'form-control mt-2'}}) }}
+		</div>
+		<div class="mb-3">
+			{{ form_label(form.userClient.nbCouvertDefault, null, {'label_attr': {'class': 'underline'}})}}
+			{{ form_widget(form.userClient.nbCouvertDefault, {'attr': {'class': 'form-control mt-2'}}) }}
+		</div>
+		{{ form_errors(form) }}
+		<div class="mb-3 d-flex justify-content-center align-items-center">
+			<input type="submit" value="S'incrire" class="btn btn-success mt-2">
+		</div>
+		<div class="mb-3 d-flex justify-content-center align-items-center">
+			<p>Déjà un compte ?
+				<a name="register-page" id="resgister-page" class=" mt-3 underline" href="{{path('app_login')}}">Se connecter</a>
+			</p>
+		</div>
+		{{form_end(form)}}
+
+	</div>
+
 {% endblock %}
