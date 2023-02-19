@@ -5,6 +5,7 @@
 
 {% block main %}
 	{{form_start(form)}}
+	{{ form_errors(form) }}
 	{{form_rest(form)}}
 	<input type="submit" value="S'incrire" class="btn btn-success mt-2">
 	{{form_end(form)}}

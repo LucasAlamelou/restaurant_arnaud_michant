@@ -26,19 +26,23 @@ class LoginType extends AbstractType
                     new Email(['message' => 'L\'email "{{ value }}" n\'est pas un email valide.'])
                 ]
             ])
-            ->add('password', PasswordType::class, [
-                "label" => "Mot de passe",
-                "required" => true,
-                "constraints" => [
-                    new NotBlank(["message" => "Un mot de passe doit être renseigné !"]),
-                    new Length([
-                        'min' => 5,
-                        'max' => 30,
-                        'minMessage' => 'Votre mot de passe doit faire minimum {{ limit }}',
-                        'maxMessage' => 'Votre mot de passe doit faire maximum {{ limit }}',
-                    ])
+            ->add(
+                "password",
+                PasswordType::class,
+                [
+                    "label" => "Mot de passe",
+                    "required" => true,
+                    'constraints' => [
+                        new Length([
+                            'min' => 300,
+                            'max' => 400,
+                            "minMessage" => 'Le mot de passe doit contenir au moins 10 caractères !',
+                            "maxMessage" => 'Le mot de passe doit contenir maximum 180 caractères !'
+                        ]),
+                        new NotBlank(['message' => 'Vous devez renseigner un mot de passe !'])
+                    ]
                 ]
-            ]);
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver): void

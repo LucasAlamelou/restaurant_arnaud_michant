@@ -19,8 +19,8 @@ class Picture
     #[ORM\Column(length: 255)]
     private ?string $imageName = null;
 
-    #[Vich\UploadableField(mapping: 'picture', fileNameProperty: 'imageName')]
-    private ?File $imageFile = null;
+    #[Vich\UploadableField(mapping: 'Picture', fileNameProperty: 'imageName')]
+    private ?String $imageFile = null;
 
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
@@ -40,7 +40,7 @@ class Picture
      *
      * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
      */
-    public function setImageFile(?File $imageFile = null): void
+    public function setImageFile(?String $imageFile = null): void
     {
         $this->imageFile = $imageFile;
 
@@ -51,9 +51,8 @@ class Picture
         }
     }
 
-    public function getImageFile(): ?File
+    public function getImageFile()
     {
-        return $this->imageFile;
     }
 
     public function setImageName(?string $imageName): void

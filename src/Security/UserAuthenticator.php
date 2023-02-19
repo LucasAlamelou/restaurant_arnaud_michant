@@ -30,7 +30,6 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
         $email = $request->request->get('email', '');
 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
-        //dd($request->request->get('_token'));
         return new Passport(
             new UserBadge($email),
             new PasswordCredentials($request->request->get('password', '')),
@@ -44,6 +43,12 @@ class UserAuthenticator extends AbstractLoginFormAuthenticator
     {
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
+        }
+        $roles = $token->getRoleNames();
+        $rolesAdmin = "ROLE_ADMIN";
+        $rolesSuperAdmin = "ROLE_SUPER_ADMIN";
+        if (in_array($rolesAdmin, $roles) || in_array($rolesSuperAdmin, $roles)) {
+            return new RedirectResponse($this->urlGenerator->generate('admin'));
         }
         return new RedirectResponse($this->urlGenerator->generate('app_home'));
     }

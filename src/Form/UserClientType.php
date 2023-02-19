@@ -43,6 +43,7 @@ class UserClientType extends AbstractType
             ])
             ->add('nbCouvertDefault', NumberType::class, [
                 "label" => "Nombre de couvert par défaut",
+                "data" => 0,
                 "required" => false
             ]);
     }
