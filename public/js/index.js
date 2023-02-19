@@ -117,9 +117,9 @@ function getDispoRevervation(hoursDay) {
                     minutes === 0 ? '00' : minutes
                 }"
                             checked>
-                    <label class="form-check-label" for="hours-${
-                        day.day
-                    }-${r}">${hour}h${minutes}</label>
+                    <label class="form-check-label" for="hours-${day.day}-${r}">${hour}h${
+                    minutes === 0 ? '00' : minutes
+                }</label>
                 </div>
                 `;
                 minutes = minutes + 15;

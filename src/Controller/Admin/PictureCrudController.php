@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Picture;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\ImageField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
@@ -29,7 +30,9 @@ class PictureCrudController extends AbstractCrudController
                 ->setBasePath('images/')
                 ->setUploadedFileNamePattern('[name].[extension]')
                 ->setUploadDir('public/images/')
-                ->setHelp('Format accepter: jpg, jpeg, png, gif')
+                ->setHelp('Format accepter: jpg, jpeg, png, gif'),
+            BooleanField::new('isForMobile')
+                ->setRequired(true)
         ];
     }
 }

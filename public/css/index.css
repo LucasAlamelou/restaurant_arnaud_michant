@@ -30,9 +30,14 @@ a{
     text-decoration: underline;
 }
 
-.twenty-px {
-    font-size: 20px;
+.hundred-twenty {
+    font-size: 120%;
 }
 .twenty-five-px {
     font-size: 25px;
+}
+
+.nav-bar-style {
+    width: max-content;
+    margin-left: 50%;
 }

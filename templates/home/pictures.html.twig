@@ -1,7 +1,15 @@
-<div class="container">
-	<div class="row d-flex">
+{% block stylesheets %}
+	<link href="{{asset("css/images.css")}}" rel="stylesheet">
+{% endblock %}
+<div class="flex-container">
+	<div class="row">
 		{% for picture in pictures %}
-			<img class="" src="{{asset(picture.imageName)}}"/>
+			{% if picture.isForMobile is same as false %}
+				{% else %}
+					<div class="col-6 col-lg-3 pictures-mobile p-3">
+						<img class="g-col-2" src="images/{{asset(picture.imageName)}}"/>
+					</div>
+			{% endif %}
 		{% endfor %}
 	</div>
 </div>

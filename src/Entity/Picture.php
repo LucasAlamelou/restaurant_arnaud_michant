@@ -26,6 +26,9 @@ class Picture
     #[ORM\Column(nullable: true)]
     private ?\DateTimeImmutable $updatedAt = null;
 
+    #[ORM\Column]
+    private ?bool $isForMobile = null;
+
 
     public function getId(): ?int
     {
@@ -84,6 +87,18 @@ class Picture
     public function setUpdatedAt($updatedAt)
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function isIsForMobile(): ?bool
+    {
+        return $this->isForMobile;
+    }
+
+    public function setIsForMobile(bool $isForMobile): self
+    {
+        $this->isForMobile = $isForMobile;
 
         return $this;
     }
