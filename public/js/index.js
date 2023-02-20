@@ -21,6 +21,7 @@ async function requete(url, content) {
 
 const inputDate = document.getElementById('reservation_date');
 if (inputDate) {
+    document.getElementById('reservation_hour').remove();
     inputDate.addEventListener('input', (event) => {
         onDateReservationChange(event);
     });
@@ -37,7 +38,7 @@ function onChangeNbCouverts(event) {
     const nbCouvert = event.target.value;
     if (nbCouvert > nbPlaceVacant) {
         const messageError =
-            '<p class="bold">Il semblerait que vous ne pouvais pas réserver pour autant de couvert !</p>';
+            '<p class="bold">Il semblerait que vous ne pouvez pas réserver pour autant de couvert !</p>';
         document.getElementById('form_reservation_submit').style.display = 'none';
         document.getElementById('message-couvert').innerHTML = messageError;
         // Cas où il essayerait quand même d'envoyé le formulaire
@@ -58,7 +59,6 @@ async function onDateReservationChange(event) {
     const htmlContentRadio = getDispoRevervation(hoursOpening.hours);
     nbPlaceVacant = getVacantPlace(reservation, hoursOpening.nbPlace);
     document.getElementById('slot_for_day').innerHTML = htmlContentRadio;
-    document.getElementById('reservation_hour').remove();
     const closeToday = '<p style="bold"> Il semblerait que le restaurant soit fermé ce jour ! </p>';
     document.getElementById('nb-place-vacant').innerHTML =
         nbPlaceVacant === 0
