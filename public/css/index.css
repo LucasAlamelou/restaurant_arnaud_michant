@@ -9,6 +9,7 @@ body{
     margin: 0px;
     padding: 0px;
     font-family: 'Overpass', sans-serif;
+    font-size: 150%;
 }
 a{
     text-decoration: none;
@@ -40,4 +41,9 @@ a{
 .nav-bar-style {
     width: max-content;
     margin-left: 50%;
+}
+@media screen and (min-width: 752px) {
+   body {
+    font-size: 100%;
+   }
 }

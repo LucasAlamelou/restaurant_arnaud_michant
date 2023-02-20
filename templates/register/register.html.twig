@@ -5,10 +5,10 @@
 
 {% block main %}
 	<div class="d-flex col-12 p-5 justify-content-center">
-		{{form_start(form, {'attr': {'novalidate': 'novalidate'}})}}
+		{{form_start(form, {'attr': {'novalidate': 'novalidate', 'class': 'col-lg-4 col-12'}})}}
 		<div class="mb-3">
 			{{ form_label(form.user.email, null, {'label_attr': {'class': 'underline'}})
-																																																															}}
+																																																																																	}}
 			{{ form_widget(form.user.email, {'attr': {'class': 'form-control mt-3'}}) }}
 			{% if form_errors(form.user.email) %}
 				<div class="alert alert-danger">
@@ -18,7 +18,7 @@
 		</div>
 		<div class="mb-3">
 			{{ form_label(form.user.password, null, {'label_attr': {'class': 'underline'}})
-																																																															}}
+																																																																																	}}
 			{{ form_widget(form.user.password, {'attr': {'class': 'form-control mt-3'}}) }}
 			{% if form_errors(form.user.password) %}
 				<div class="alert alert-danger">
@@ -29,7 +29,7 @@
 		<div class="row">
 			<div class="mb-3 col-6">
 				{{ form_label(form.userClient.lastName, null, {'label_attr': {'class': 'underline'}})
-																																																																																}}
+																																																																																																								}}
 				{{ form_widget(form.userClient.lastName, {'attr': {'class': 'form-control mt-2'}}) }}
 				{% if form_errors(form.userClient.lastName) %}
 					<div class="alert alert-danger">
@@ -39,7 +39,7 @@
 			</div>
 			<div class="mb-3 col-6">
 				{{ form_label(form.userClient.firstName, null, {'label_attr': {'class': 'underline'}})
-																																																																																}}
+																																																																																																								}}
 				{{ form_widget(form.userClient.firstName, {'attr': {'class': 'form-control mt-2'}}) }}
 				{% if form_errors(form.userClient.firstName) %}
 					<div class="alert alert-danger">
@@ -52,7 +52,7 @@
 
 		<div class="mb-3">
 			{{ form_label(form.userClient.allergns, null, {'label_attr': {'class': 'underline'}})
-																																																															}}
+																																																																																	}}
 			{{ form_widget(form.userClient.allergns, {'attr': {'class': 'form-control mt-2'}}) }}
 		</div>
 		<div class="mb-3">
