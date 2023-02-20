@@ -7,8 +7,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\NumberField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextEditorField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
 
 class FormuleInMenuCrudController extends AbstractCrudController
 {
@@ -22,7 +21,7 @@ class FormuleInMenuCrudController extends AbstractCrudController
     {
         return [
             IdField::new('id')->hideOnForm(),
-            TextEditorField::new('description')->setRequired(true),
+            TextareaField::new('description')->setRequired(true),
             NumberField::new('price')->setRequired(true),
             AssociationField::new('TypeOfMenu'),
 
