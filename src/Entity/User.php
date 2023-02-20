@@ -33,9 +33,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     #[Length(
         min: 5,
-        max: 35,
+        max: 180,
         minMessage: 'Le mot de passe doit contenir au moins 5 caractères',
-        maxMessage: 'Le mot de passe doit contenir au maximum 35 caractères',
+        maxMessage: 'Le mot de passe doit contenir au maximum 180 caractères',
     )]
     #[NotBlank(message: 'Un mot de passe doit être saisie !')]
     private ?string $password = null;
