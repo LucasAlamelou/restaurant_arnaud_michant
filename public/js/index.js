@@ -52,6 +52,7 @@ function onChangeNbCouverts(event) {
  * @param {Event} event
  */
 async function onDateReservationChange(event) {
+    document.getElementById('slot_for_day').innerHTML = '';
     const date = event.target.value;
     const jour = getDayOfDate(new Date(date));
     const reservation = await getReservationJour(date);
@@ -61,7 +62,7 @@ async function onDateReservationChange(event) {
     document.getElementById('slot_for_day').innerHTML = htmlContentRadio;
     const closeToday = '<p style="bold"> Il semblerait que le restaurant soit fermé ce jour ! </p>';
     document.getElementById('nb-place-vacant').innerHTML =
-        nbPlaceVacant === 0
+        nbPlaceVacant === 0 || isClosed(hoursOpening.hours)
             ? closeToday
             : `<p style="bolder" > Il ne reste que ${nbPlaceVacant} couvert pour ce jour !</p>`;
 }
@@ -170,4 +171,19 @@ function getVacantPlace(reservations, nbPlacesMax) {
         nbPlaceOccuped += resa.nbCouvert;
     });
     return nbPlacesMax - nbPlaceOccuped;
+}
+
+/**
+ * Détermine si le restaurant est ouvert ce jour
+ * @param {Array} hoursDay
+ * @returns {Boolean} retourne true si fermé ce jour
+ */
+function isClosed(hoursDay) {
+    let close = true;
+    hoursDay.forEach((day) => {
+        if (day.startHour && day.endHour) {
+            close = false;
+        }
+    });
+    return close;
 }
