@@ -30,19 +30,28 @@ class AppFixtures extends Fixture
         $manager->persist($restaurant);
 
         $hours = new Hours();
-        $hours->setDay('Lundi')->setStartHour('12h00')->setEndHour('14h00')->setRestaurant($restaurant);
+        $hours->setDay('Lundi')->setStartHour('19h00')->setEndHour('23h00')->setRestaurant($restaurant);
         $manager->persist($hours);
         $hours = new Hours();
-        $hours->setDay('Lundi')->setStartHour('20h00')->setEndHour('23h00')->setRestaurant($restaurant);
+        $hours->setDay('Mardi')->setStartHour('11h30')->setEndHour('14h00')->setRestaurant($restaurant);
+        $manager->persist($hours);
+        $hours = new Hours();
+        $hours->setDay('Mercredi')->setRestaurant($restaurant);
+        $manager->persist($hours);
+        $hours = new Hours();
+        $hours->setDay('Jeudi')->setStartHour('11h30')->setEndHour('14h00')->setRestaurant($restaurant);
+        $manager->persist($hours);
+        $hours = new Hours();
+        $hours->setDay('Vendredi')->setStartHour('19h00')->setEndHour('23h00')->setRestaurant($restaurant);
         $manager->persist($hours);
 
         $user = new User($this->passwordHasher);
         $userClient = new UserClient();
-        $userClient->setFirstName('Alamelou')->setLastName('Lucas');
+        $userClient->setFirstName('Admin')->setLastName('Admin');
         $userClient->setNbCouvertDefault(2);
-        $user->setEmail('lucas.alamelou@gmail.com');
+        $user->setEmail('admin@admin.com');
         $user->setPassword('admin');
-        $user->setRoles(array('ROLE_ADMIN'));
+        $user->setRoles(array('ROLE_SUPER_ADMIN'));
         $user->setUserClient($userClient);
         $manager->persist($user);
 
@@ -56,15 +65,14 @@ class AppFixtures extends Fixture
 
 
         $categorieArray = array('Entrées', 'Plats', 'Desserts', 'Spécialité');
-
-        $categorie = new CategoriesOfPlat();
+        $$categorie = new CategoriesOfPlat();
         $categorie->setName($categorieArray[0]);
         $manager->persist($categorie);
         for ($i = 0; $i < 3; $i++) {
             $plat = new PlatOfRestaurant();
             $plat->setTitle($categorie->getName() . $i);
             $plat->setDescription('Une petite description du plat..' . $i);
-            $plat->setPrice(mt_rand(0, 25));
+            $plat->setPrice(mt_rand(15, 25));
             $plat->setCategoriesOfPlat($categorie);
             $manager->persist($plat);
         }
@@ -76,7 +84,7 @@ class AppFixtures extends Fixture
             $plat = new PlatOfRestaurant();
             $plat->setTitle($categorie->getName() . $i);
             $plat->setDescription('Une petite description du plat..' . $i);
-            $plat->setPrice(mt_rand(0, 25));
+            $plat->setPrice(mt_rand(15, 25));
             $plat->setCategoriesOfPlat($categorie);
             $manager->persist($plat);
         }
@@ -88,7 +96,7 @@ class AppFixtures extends Fixture
             $plat = new PlatOfRestaurant();
             $plat->setTitle($categorie->getName() . $i);
             $plat->setDescription('Une petite description du plat..' . $i);
-            $plat->setPrice(mt_rand(0, 25));
+            $plat->setPrice(mt_rand(15, 25));
             $plat->setCategoriesOfPlat($categorie);
             $manager->persist($plat);
         }
