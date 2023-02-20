@@ -58,6 +58,7 @@ async function onDateReservationChange(event) {
     const htmlContentRadio = getDispoRevervation(hoursOpening.hours);
     nbPlaceVacant = getVacantPlace(reservation, hoursOpening.nbPlace);
     document.getElementById('slot_for_day').innerHTML = htmlContentRadio;
+    document.getElementById('reservation_hour').remove();
     const closeToday = '<p style="bold"> Il semblerait que le restaurant soit fermé ce jour ! </p>';
     document.getElementById('nb-place-vacant').innerHTML =
         nbPlaceVacant === 0

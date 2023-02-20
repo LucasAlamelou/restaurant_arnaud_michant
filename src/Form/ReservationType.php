@@ -32,7 +32,6 @@ class ReservationType extends AbstractType
             ->add('hour', HiddenType::class, [
                 'row_attr' => ['class' => 'form-hour', 'id' => 'form-hour-id'],
                 'label' => 'Heure',
-                'required' => true,
                 "constraints" => [
                     new NotBlank(["message" => "Une heure doit être renseigné !"])
                 ]
