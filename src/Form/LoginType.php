@@ -21,10 +21,7 @@ class LoginType extends AbstractType
                 "label" => "Adresse email",
                 "required" => true,
                 'attr' => ['autofocus' => true],
-                "constraints" => [
-                    new NotBlank(["message" => "Une adresse email doit être renseigné !"]),
-                    new Email(['message' => 'L\'email "{{ value }}" n\'est pas un email valide.'])
-                ]
+
             ])
             ->add(
                 "password",
@@ -32,15 +29,6 @@ class LoginType extends AbstractType
                 [
                     "label" => "Mot de passe",
                     "required" => true,
-                    'constraints' => [
-                        new Length([
-                            'min' => 300,
-                            'max' => 400,
-                            "minMessage" => 'Le mot de passe doit contenir au moins 10 caractères !',
-                            "maxMessage" => 'Le mot de passe doit contenir maximum 180 caractères !'
-                        ]),
-                        new NotBlank(['message' => 'Vous devez renseigner un mot de passe !'])
-                    ]
                 ]
             );
     }

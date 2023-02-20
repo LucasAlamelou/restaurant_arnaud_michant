@@ -7,7 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -18,6 +20,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[NotBlank(message: 'Une adresse email doit être saisie !')]
+    #[Email(message: 'L\'email "{{ value }}" n\'est pas un email valide.')]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -33,6 +37,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         minMessage: 'Le mot de passe doit contenir au moins 5 caractères',
         maxMessage: 'Le mot de passe doit contenir au maximum 35 caractères',
     )]
+    #[NotBlank(message: 'Un mot de passe doit être saisie !')]
     private ?string $password = null;
 
     #[ORM\OneToOne(mappedBy: 'user', cascade: ['persist', 'remove'])]

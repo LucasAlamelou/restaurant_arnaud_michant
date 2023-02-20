@@ -41,8 +41,9 @@ class ClientUserController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $user->setUserClient($userClient);
             $userClient->setUser($user);
+            dd($form);
             $em = $doctrine->getManager();
-            $em->persist($userClient);
+            $em->persist($user);
             $em->flush();
             return $userAuthenticator->authenticateUser(
                 $user,

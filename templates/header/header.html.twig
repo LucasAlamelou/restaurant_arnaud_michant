@@ -19,16 +19,17 @@
 					<li class="nav-item">
 						<a class="nav-link bold" href="{{path('app_logout')}}">{{"Se déconnecter"|upper}}</a>
 					</li>
+					{% if 'ROLE_ADMIN' in app.user.roles %}
+						<li class="nav-item">
+							<a class="nav-link bold" href="{{path('admin')}}">{{"Back-End"|upper}}</a>
+						</li>
+					{% endif %}
 				{% else %}
 					<li class="nav-item">
 						<a class="nav-link bold" href="{{path('app_login')}}">{{"Se connecter"|upper}}</a>
 					</li>
 				{% endif %}
-				{% if 'ROLE_ADMIN' in app.user.roles %}
-					<li class="nav-item">
-						<a class="nav-link bold" href="{{path('admin')}}">{{"Back-End"|upper}}</a>
-					</li>
-				{% endif %}
+
 
 			</ul>
 		</div>
