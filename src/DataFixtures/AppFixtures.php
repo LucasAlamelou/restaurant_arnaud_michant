@@ -50,7 +50,7 @@ class AppFixtures extends Fixture
         $userClient->setFirstName('Admin')->setLastName('Admin');
         $userClient->setNbCouvertDefault(2);
         $user->setEmail('admin@admin.com');
-        $user->setPassword('admin');
+        $user->setPassword('admin1234');
         $user->setRoles(array('ROLE_SUPER_ADMIN'));
         $user->setUserClient($userClient);
         $manager->persist($user);
@@ -59,7 +59,7 @@ class AppFixtures extends Fixture
         $userClient1 = new UserClient();
         $userClient1->setFirstName('User1')->setLastName('User1');
         $userClient1->setNbCouvertDefault(0)->setAllergns('Tomate, Gluten');
-        $user1->setEmail('user@user.com')->setPassword('admin');
+        $user1->setEmail('user@user.com')->setPassword('admin123');
         $user1->setUserClient($userClient1);
         $manager->persist($user1);
 
