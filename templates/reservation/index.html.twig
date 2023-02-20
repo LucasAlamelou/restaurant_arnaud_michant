@@ -14,9 +14,10 @@
 				!</h3>
 		{% endif %}
 	</div>
-	<div class="d-flex col-12 p-5 justify-content-center">
 
+	<div class="d-flex col-12 p-5 justify-content-center">
 		{{form_start(form)}}
+		<div class="mb-3" id="message-couvert"></div>
 		<div class="mb-3">
 			{{ form_label(form.date, null, {'label_attr': {'class': 'underline'}})}}
 			{{ form_widget(form.date, {'attr': {'class': 'form-control mt-2'}}) }}
@@ -56,7 +57,7 @@
 		<div id="nb-place-vacant" class="mb-3"></div>
 		<div id="slot_for_day" class="mb-3"></div>
 		<div class="mb-3 d-flex justify-content-center align-items-center">
-			<input class="btn btn-danger btn-lg" value="Réserver" type="submit">
+			<input class="btn btn-danger btn-lg" value="Réserver" type="submit" id="form_reservation_submit">
 		</div>
 		{{form_end(form)}}
 

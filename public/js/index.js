@@ -1,3 +1,8 @@
+/**
+ * Nombre de place disponible dans le restaurant
+ */
+let nbPlaceVacant = 0;
+
 async function requete(url, content) {
     const options = {
         method: 'POST',
@@ -21,8 +26,28 @@ if (inputDate) {
     });
 }
 
+const inputNbCouverts = document.getElementById('reservation_nbCouvert');
+if (inputNbCouverts) {
+    inputNbCouverts.addEventListener('input', (event) => {
+        onChangeNbCouverts(event);
+    });
+}
+
+function onChangeNbCouverts(event) {
+    const nbCouvert = event.target.value;
+    if (nbCouvert > nbPlaceVacant) {
+        const messageError =
+            '<p class="bold">Il semblerait que vous ne pouvais pas réserver pour autant de couvert !</p>';
+        document.getElementById('form_reservation_submit').style.display = 'none';
+        document.getElementById('message-couvert').innerHTML = messageError;
+        // Cas où il essayerait quand même d'envoyé le formulaire
+        const form = document.getElementsByName('reservation');
+        form.addEventListener('submit', (event) => event.preventDefault);
+    }
+}
+
 /**
- *
+ * Ecoute l'event sur la sélection de l'input date
  * @param {Event} event
  */
 async function onDateReservationChange(event) {
@@ -30,10 +55,8 @@ async function onDateReservationChange(event) {
     const jour = getDayOfDate(new Date(date));
     const reservation = await getReservationJour(date);
     const hoursOpening = await getHoursOfDay(jour);
-    console.log(reservation);
-    console.log(hoursOpening);
     const htmlContentRadio = getDispoRevervation(hoursOpening.hours);
-    const nbPlaceVacant = getVacantPlace(reservation, hoursOpening.nbPlace);
+    nbPlaceVacant = getVacantPlace(reservation, hoursOpening.nbPlace);
     document.getElementById('slot_for_day').innerHTML = htmlContentRadio;
     const closeToday = '<p style="bold"> Il semblerait que le restaurant soit fermé ce jour ! </p>';
     document.getElementById('nb-place-vacant').innerHTML =
@@ -97,14 +120,14 @@ function getDispoRevervation(hoursDay) {
         const closeArray = day.endHour.split('h');
         const hourStart = Number(openingArray[0]);
         const hourEnd = Number(closeArray[0]);
-        const hourOfOpen = hourEnd - hourStart;
+        const hourOfOpen = hourEnd - hourStart - 1;
 
         for (let i = 0; i < hourOfOpen; i++) {
             // 5 créneaux par heure
             const slot = 4;
-            console.log('slot : ' + slot);
             let hour = hourStart + i;
             let minutes = 00;
+            htmlContent += '<div class="col-2">';
             for (let r = 0; r < slot; r++) {
                 if (minutes === 60) {
                     minutes = 00;
@@ -124,13 +147,19 @@ function getDispoRevervation(hoursDay) {
                 `;
                 minutes = minutes + 15;
             }
+            htmlContent += '</div>';
         }
     });
     htmlContent += '</div>';
-    console.log(htmlContent);
     return htmlContent;
 }
 
+/**
+ * Calcule le nombre de place disponible
+ * @param {Array} reservations
+ * @param {Number} nbPlacesMax
+ * @returns {Number} nombre de place disponible
+ */
 function getVacantPlace(reservations, nbPlacesMax) {
     let nbPlaceOccuped = 0;
     if (nbPlacesMax === undefined) {

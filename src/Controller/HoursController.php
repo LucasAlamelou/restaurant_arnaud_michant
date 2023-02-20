@@ -15,7 +15,6 @@ class HoursController extends AbstractController
     public function getHours(
         Request $request,
         HoursRepository $hoursRepository,
-        SerializerInterface $serializer
     ): JsonResponse {
         $bodyEncode = $request->getContent();
         $body = json_decode($bodyEncode, true);
@@ -30,6 +29,7 @@ class HoursController extends AbstractController
         foreach ($hoursOfDay as $hour) {
             array_push($result, array('day' => $hour->getDay(), 'startHour' => $hour->getStartHour(), 'endHour' => $hour->getEndHour()));
         }
+
         $nbPlaces = $hoursOfDay[0]->getRestaurant()->getCapacityMax();
         return $this->json(['hours' => $result, 'nbPlace' => $nbPlaces], 200);
     }
