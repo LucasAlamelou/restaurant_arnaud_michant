@@ -26,4 +26,16 @@ class HomeController extends AbstractController
             'pictures' => $pictureRepository->findAll()
         ]);
     }
+
+    #[Route('/mentions', name: 'app_mentions', methods: ['GET'])]
+    public function mentions(): Response
+    {
+        return $this->render('mentions/mentions.html.twig', []);
+    }
+
+    #[Route('/confidentialite', name: 'app_confidentialite', methods: ['GET'])]
+    public function confidentialite(): Response
+    {
+        return $this->render('confidentialite/confidentialite.html.twig', []);
+    }
 }
