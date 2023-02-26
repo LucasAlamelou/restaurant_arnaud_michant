@@ -36,14 +36,21 @@ if (inputNbCouverts) {
 
 function onChangeNbCouverts(event) {
     const nbCouvert = event.target.value;
-    if (nbCouvert > nbPlaceVacant) {
-        const messageError =
-            '<p class="bold">Il semblerait que vous ne pouvez pas réserver pour autant de couvert !</p>';
+    if (nbCouvert > nbPlaceVacant || nbCouvert < 1) {
+        console.log('hello if');
+        let messageError = '';
+        if (nbCouvert > nbPlaceVacant) {
+            messageError =
+                '<p class="bold">Il semblerait que vous ne pouvez pas réserver pour autant de couvert !</p>';
+        } else if (nbCouvert < 1) {
+            messageError =
+                '<p class="bold">Veuillez renseigné un nombre de couvert supérieur à 0 !</p>';
+        }
         document.getElementById('form_reservation_submit').style.display = 'none';
         document.getElementById('message-couvert').innerHTML = messageError;
-        // Cas où il essayerait quand même d'envoyé le formulaire
-        const form = document.getElementsByName('reservation');
-        form.addEventListener('submit', (event) => event.preventDefault);
+    } else {
+        document.getElementById('form_reservation_submit').style.display = 'block';
+        document.getElementById('message-couvert').innerHTML = '';
     }
 }
 
@@ -54,17 +61,29 @@ function onChangeNbCouverts(event) {
 async function onDateReservationChange(event) {
     document.getElementById('slot_for_day').innerHTML = '';
     const date = event.target.value;
-    const jour = getDayOfDate(new Date(date));
-    const reservation = await getReservationJour(date);
-    const hoursOpening = await getHoursOfDay(jour);
-    const htmlContentRadio = getDispoRevervation(hoursOpening.hours);
-    nbPlaceVacant = getVacantPlace(reservation, hoursOpening.nbPlace);
-    document.getElementById('slot_for_day').innerHTML = htmlContentRadio;
-    const closeToday = '<p style="bold"> Il semblerait que le restaurant soit fermé ce jour ! </p>';
-    document.getElementById('nb-place-vacant').innerHTML =
-        nbPlaceVacant === 0 || isClosed(hoursOpening.hours)
-            ? closeToday
-            : `<p style="bolder" > Il ne reste que ${nbPlaceVacant} couvert pour ce jour !</p>`;
+    if (Date.parse(date) > Date.now()) {
+        const jour = getDayOfDate(new Date(date));
+        const reservation = await getReservationJour(date);
+        const hoursOpening = await getHoursOfDay(jour);
+        const htmlContentRadio = getDispoRevervation(hoursOpening.hours);
+        nbPlaceVacant = getVacantPlace(reservation, hoursOpening.nbPlace);
+        document.getElementById('slot_for_day').innerHTML = htmlContentRadio;
+        const closeToday =
+            '<p style="bold"> Il semblerait que le restaurant soit fermé ce jour ! </p>';
+        document.getElementById('nb-place-vacant').innerHTML =
+            nbPlaceVacant === 0 || isClosed(hoursOpening.hours)
+                ? closeToday
+                : `<p style="bolder" > Il ne reste que ${nbPlaceVacant} couvert pour ce jour !</p>`;
+    } else {
+        const dateOfDay = new Date(Date.now());
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById(
+            'nb-place-vacant'
+        ).innerHTML = `<p style="bolder" > Vous ne pouvez pas réservé pour une date inférieur à celle du jour : ${dateOfDay.toLocaleString(
+            'fr-FR',
+            options
+        )}!</p>`;
+    }
 }
 
 /**

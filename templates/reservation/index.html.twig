@@ -21,6 +21,11 @@
 		<div class="mb-3">
 			{{ form_label(form.date, null, {'label_attr': {'class': 'underline'}})}}
 			{{ form_widget(form.date, {'attr': {'class': 'form-control mt-2'}}) }}
+			{% if form_errors(form.date) %}
+				<div class="alert alert-danger">
+					{{ form_errors(form.date)}}
+				</div>
+			{% endif %}
 		</div>
 		<div class="mb-3">
 			{{ form_label(form.nameOfClient, null, {'label_attr': {'class': 'underline'}})}}
@@ -29,6 +34,11 @@
 			{% else %}
 				{{ form_widget(form.nameOfClient, {'attr': {'class': 'form-control mt-2', 'value' :
 				user.userClient.FirstName}}) }}
+			{% endif %}
+			{% if form_errors(form.nameOfClient) %}
+				<div class="alert alert-danger">
+					{{ form_errors(form.nameOfClient)}}
+				</div>
 			{% endif %}
 
 		</div>
@@ -42,7 +52,11 @@
 				user.userClient.nbCouvertDefault
 			}}) }}
 			{% endif %}
-
+			{% if form_errors(form.nbCouvert) %}
+				<div class="alert alert-danger">
+					{{ form_errors(form.nbCouvert)}}
+				</div>
+			{% endif %}
 		</div>
 		<div class="mb-3">
 			{{ form_label(form.allergns, null, {'label_attr': {'class': 'underline'}})}}

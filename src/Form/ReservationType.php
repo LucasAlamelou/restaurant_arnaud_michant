@@ -10,9 +10,11 @@ use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\GreaterThan;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotEqualTo;
+use Symfony\Component\Validator\Constraints\Positive;
 
 class ReservationType extends AbstractType
 {
@@ -27,6 +29,7 @@ class ReservationType extends AbstractType
                 'input'  => 'datetime_immutable',
                 "constraints" => [
                     new NotBlank(["message" => "Une date doit être renseigné !"]),
+                    new GreaterThan('today UTC', message: 'Une date supérieur à celle du jour doit être renseigné !')
                 ]
             ])
             ->add('hour', HiddenType::class, [
@@ -56,7 +59,8 @@ class ReservationType extends AbstractType
                         max: 6,
                         minMessage: 'Vous devez réserver pour au moins une personne !',
                         maxMessage: 'Le nombre de couvert maximum par table est 6 ! '
-                    )
+                    ),
+                    new Positive(message: 'Le nombre doit être positif !')
                 ]
             ])
             ->add('allergns', TextType::class, [
