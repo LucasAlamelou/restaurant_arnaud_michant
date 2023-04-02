@@ -61,7 +61,11 @@ function onChangeNbCouverts(event) {
 async function onDateReservationChange(event) {
     document.getElementById('slot_for_day').innerHTML = '';
     const date = event.target.value;
-    if (Date.parse(date) > Date.now()) {
+    const dateOfDay = new Date();
+    const dateUser = new Date(date);
+    dateUser.setTime(dateOfDay.getTime());
+
+    if (dateUser >= dateOfDay) {
         const jour = getDayOfDate(new Date(date));
         const reservation = await getReservationJour(date);
         const hoursOpening = await getHoursOfDay(jour);
