@@ -2,6 +2,10 @@
  * Nombre de place disponible dans le restaurant
  */
 let nbPlaceVacant = 0;
+let errorInForm = false;
+let elementPError = document.createElement("p");
+elementPError.style.color = 'red';
+//elementPError.style.fontWeight = 'bolder';
 
 async function requete(url, content) {
     const options = {
@@ -30,14 +34,67 @@ if (inputDate) {
 const inputNbCouverts = document.getElementById('reservation_nbCouvert');
 if (inputNbCouverts) {
     inputNbCouverts.addEventListener('input', (event) => {
+        verifyInputNbCouvert(event.target.value);
         onChangeNbCouverts(event);
     });
+}
+
+const inputNameReservation = document.getElementById('reservation_nameOfClient');
+if(inputNameReservation) {
+    inputNameReservation.addEventListener('input', (event) => {
+        verifyInputNameReservation(event.target.value);
+    })
+}
+
+function verifyInputNbCouvert(value) {
+    const nbCouvertInput = parseInt(value);
+    if(nbCouvertInput === 0 || nbCouvertInput < 0 || nbCouvertInput > 8 || isNaN(nbCouvertInput)){
+        changeColorInputNbCouvert(true);
+        //blockedSubmitForm();
+    }else{
+        changeColorInputNbCouvert(false);
+        //valideSubmitForm();
+    }
+}
+
+function verifyInputNameReservation(value){
+    if(value === '' || value.length > 10 || value.length < 2 || typeof value !== 'string') {
+        errorInForm = true;
+        changeColorInputName(true);
+        //blockedSubmitForm();
+    } else {
+        errorInForm = false;
+        changeColorInputName(false);
+        //valideSubmitForm();
+    }
+}
+
+function changeColorInputName(error){
+    elementPError.innerHTML = '';
+    if(error){
+        inputNameReservation.style.border = '2px solid red';
+        elementPError.innerHTML = 'Veuillez saisir un nom valide !';
+        inputNameReservation.after(elementPError);
+    } else {
+        inputNameReservation.style.border = '2px solid green';
+    }
+}
+
+function changeColorInputNbCouvert(error){
+    elementPError.innerHTML = '';
+    if(error){
+        inputNbCouverts.style.border = '2px solid red';
+        elementPError.innerHTML = 'Veuillez saisir un nombre de couvert valide !';
+        inputNbCouverts.after(elementPError);
+
+    } else {
+        inputNbCouverts.style.border = '2px solid green';
+    }
 }
 
 function onChangeNbCouverts(event) {
     const nbCouvert = event.target.value;
     if (nbCouvert > nbPlaceVacant || nbCouvert < 1) {
-        console.log('hello if');
         let messageError = '';
         if (nbCouvert > nbPlaceVacant) {
             messageError =
@@ -46,10 +103,8 @@ function onChangeNbCouverts(event) {
             messageError =
                 '<p class="bold">Veuillez renseigné un nombre de couvert supérieur à 0 !</p>';
         }
-        document.getElementById('form_reservation_submit').style.display = 'none';
         document.getElementById('message-couvert').innerHTML = messageError;
     } else {
-        document.getElementById('form_reservation_submit').style.display = 'block';
         document.getElementById('message-couvert').innerHTML = '';
     }
 }
@@ -63,15 +118,20 @@ async function onDateReservationChange(event) {
     const date = event.target.value;
     const dateOfDay = new Date();
     const dateUser = new Date(date);
-    dateUser.setTime(dateOfDay.getTime());
-
-    if (dateUser >= dateOfDay) {
+    dateUser.setHours(dateOfDay.getHours());
+    dateUser.setMinutes(dateOfDay.getMinutes());
+    if (dateUser.getTime() >= dateOfDay.getTime()) {
         const jour = getDayOfDate(new Date(date));
         const reservation = await getReservationJour(date);
         const hoursOpening = await getHoursOfDay(jour);
         const htmlContentRadio = getDispoRevervation(hoursOpening.hours);
         nbPlaceVacant = getVacantPlace(reservation, hoursOpening.nbPlace);
         document.getElementById('slot_for_day').innerHTML = htmlContentRadio;
+        if(nbPlaceVacant > 0) {
+            document.getElementById('reservation_date').style.border = '2px solid green';
+        } else {
+            document.getElementById('reservation_date').style.border = '2px solid red';
+        }
         const closeToday =
             '<p style="bold"> Il semblerait que le restaurant soit fermé ce jour ! </p>';
         document.getElementById('nb-place-vacant').innerHTML =
@@ -87,6 +147,7 @@ async function onDateReservationChange(event) {
             'fr-FR',
             options
         )}!</p>`;
+        document.getElementById('reservation_date').style.border = '2px solid red';
     }
 }
 
@@ -209,4 +270,24 @@ function isClosed(hoursDay) {
         }
     });
     return close;
+}
+
+function blockedSubmitForm(){
+    const listElements = document.getElementsByName('reservation');
+    if(listElements.length > 0){
+        const form = listElements[0];
+        document.getElementById('form_reservation_submit').style.display = 'none';
+        form.addEventListener('submit', (event) => {
+            event.preventDefault();
+            document.getElementById(
+                'nb-place-vacant'
+            ).innerHTML = 'Vous ne pouvez pas envoyer un formulaire non valide !';
+        });
+    }
+}
+
+function valideSubmitForm(){
+    if(!errorInForm){
+        document.getElementById('form_reservation_submit').style.display = 'block';
+    }
 }
